@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HomeView from './views/HomeView';
 import AboutView from './views/AboutView';
@@ -7,7 +7,32 @@ import BlogView from './views/BlogView';
 import TechView from './views/TechView';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => {
+    // Read the initial path from the URL
+    const path = window.location.pathname.substring(1).toLowerCase();
+    const validTabs = ['home', 'about', 'work', 'blog', 'tech'];
+    return validTabs.includes(path) ? path : 'home';
+  });
+
+  // Update the URL whenever the tab changes
+  useEffect(() => {
+    const newUrl = activeTab === 'home' ? '/' : `/${activeTab}`;
+    if (window.location.pathname !== newUrl) {
+      window.history.pushState(null, '', newUrl);
+    }
+  }, [activeTab]);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname.substring(1).toLowerCase();
+      const validTabs = ['home', 'about', 'work', 'blog', 'tech'];
+      setActiveTab(validTabs.includes(path) ? path : 'home');
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const renderView = () => {
     switch (activeTab) {
