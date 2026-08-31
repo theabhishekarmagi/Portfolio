@@ -1,0 +1,3 @@
+.env
+.agents/mcp_config.json
+node_modules/
