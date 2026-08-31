@@ -6,6 +6,10 @@
   color-scheme: dark;
 }
 
+html {
+  background-color: #0B56E3;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -13,14 +17,15 @@ body {
   color: #ffffff;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  zoom: 0.8;
 }
 
 /* Authentic Figma Monotone Noise Texture */
 .figma-noise-layer {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 125vw;
+  height: 125vh;
   pointer-events: none;
   z-index: 100;
   opacity: 0.35;
@@ -32,8 +37,8 @@ body {
 .figma-noise-layer-subtle {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 125vw;
+  height: 125vh;
   pointer-events: none;
   z-index: 99;
   opacity: 0.12;
