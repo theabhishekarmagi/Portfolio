@@ -1,6 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function HomeView({ setActiveTab }) {
+  const [iconsInView, setIconsInView] = useState(false);
+  const iconsRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && window.innerWidth < 768) {
+          setIconsInView(true);
+        } else {
+          setIconsInView(false);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (iconsRef.current) {
+      observer.observe(iconsRef.current);
+    }
+
+    return () => {
+      if (iconsRef.current) observer.unobserve(iconsRef.current);
+    };
+  }, []);
+
   return (
     /*
      * Frame is 1440px wide. We use a max-w-[1440px] container.
@@ -20,41 +44,28 @@ export default function HomeView({ setActiveTab }) {
      *   Dream logo:           x=164 (11.4%), w=123, h=171
      *   Software Dev title:   x=338 (23.5%)
      */
-    <main className="w-full max-w-[1440px] mx-auto font-['Inter'] pb-48 relative">
+    <main className="w-full max-w-[1440px] mx-auto font-['Inter'] pb-32 md:pb-48 relative overflow-x-hidden">
 
       {/* ── HERO SECTION ─────────────────────────────────────────────────────── */}
-      {/*
-       * Photo: x=655, y=378, w=435, h=426 (circle)
-       * "Hi my name is": x=396, y=499 (starts 259px left of photo, 121px below photo top)
-       * "MAGI ABISHEKAR": x=445, y=591 (at vertical center of photo: 378+426/2=591)
-       *
-       * Layout: text block is at 27-31% from left, photo at 45-76%
-       * → Use a flex row. Photo width fixed at 435px.
-       *   Left column: text. Right: photo. Space them with gap.
-       */}
       <section
-        className="relative pt-[200px] pb-[120px]"
+        className="relative pt-[100px] sm:pt-[150px] md:pt-[200px] pb-[80px] md:pb-[120px] px-6 md:px-0"
       >
-        {/* Position the flex row so text starts at x=396 from page left */}
         <div
-          className="flex items-center"
-          style={{ paddingLeft: 396, gap: 255 }}
+          className="flex flex-col-reverse md:flex-row items-center justify-center md:justify-start gap-12 md:gap-[150px] lg:gap-[255px] md:pl-[200px] lg:pl-[396px]"
         >
-          {/* Text block: "Hi my name is" at y=499, "MAGI ABISHEKAR" at y=591 */}
-          {/* Both are 32px, weight 400 */}
-          <div className="flex-shrink-0">
-            <p className="text-[32px] leading-[39px] font-normal text-white mb-4">
+          {/* Text block */}
+          <div className="flex-shrink-0 text-center md:text-left">
+            <p className="text-[24px] sm:text-[32px] leading-[1.2] font-normal text-white mb-4">
               Hi my name is
             </p>
-            <h1 className="text-[32px] leading-[39px] font-normal text-white tracking-wide">
+            <h1 className="text-[32px] sm:text-[40px] leading-[1.2] font-normal text-white tracking-wide">
               MAGI<br />ABHISHEKAR
             </h1>
           </div>
 
-          {/* Photo: 435x426 circle */}
+          {/* Photo */}
           <div
-            className="rounded-full overflow-hidden flex-shrink-0 shadow-2xl"
-            style={{ width: 435, height: 426 }}
+            className="rounded-full overflow-hidden flex-shrink-0 shadow-2xl w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[435px] md:h-[426px]"
           >
             <img
               src="/assets/profile.png"
@@ -66,40 +77,29 @@ export default function HomeView({ setActiveTab }) {
       </section>
 
       {/* ── BIO TEXT ─────────────────────────────────────────────────────────── */}
-      {/* Figma: x=287, w=868, centered at x=721 (≈ center of 1440px frame) */}
       <section
-        className="pb-[240px]"
-        style={{ paddingLeft: 287, paddingRight: 287 }}
+        className="pb-[120px] md:pb-[240px] px-6 sm:px-12 md:px-[150px] lg:px-[287px]"
       >
-        <p className="text-[32px] leading-[39px] font-normal text-white/95">
+        <p className="text-[24px] sm:text-[32px] leading-[1.4] font-normal text-white/95 text-center md:text-left">
           I am a solo developer build products and design systems i love open source projects and i like to build productivity apps.
         </p>
       </section>
 
       {/* ── CONNECT SECTION ─────────────────────────────────────────────────── */}
-      {/*
-       * "Connect with me": x=470, y=1211, w=279
-       * Instagram:         x=762, y=1184, w=83,  h=82
-       * LinkedIn:          x=814, y=1175, w=101, h=101
-       * GitHub:            x=870, y=1191, w=78,  h=77
-       * "Check my work history →": x=966, y=1417, w=306
-       */}
-      <section className="pb-[360px]">
-        {/* Connect with me + social icons inline row */}
-        {/* "Connect with me" starts at x=470, social icons start at x=762 */}
-        {/* Gap between text right edge (470+279=749) and instagram (762) = 13px */}
+      <section className="pb-[150px] md:pb-[360px] px-6 md:px-0">
         <div
-          className="flex items-center mb-[200px] group cursor-default"
-          style={{ paddingLeft: 470 }}
+          className="flex flex-col md:flex-row items-center mb-[100px] md:mb-[200px] group cursor-default md:pl-[200px] lg:pl-[470px]"
+          ref={iconsRef}
         >
-          <span className="text-[32px] leading-[51px] font-normal text-white whitespace-nowrap mr-[13px]">
+          <span className="text-[28px] sm:text-[32px] leading-[1.2] font-normal text-white whitespace-nowrap mb-8 md:mb-0 md:mr-[13px]">
             Connect with me
           </span>
 
           {/* Social icons cluster with negative overlap and scattered rotations */}
-          <div className="flex items-center">
+          {/* Shift container left by 40px on mobile to compensate for the rightward spread */}
+          <div className={`flex items-center transform scale-75 sm:scale-100 transition-transform duration-500 ${iconsInView ? '-translate-x-[40px] sm:translate-x-0' : 'translate-x-0'}`}>
             {/* Instagram: rotated left */}
-            <div className="transition-all duration-300 ease-out z-10 relative flex-shrink-0 -rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0">
+            <div className={`transition-all duration-500 ease-out z-10 relative flex-shrink-0 ${iconsInView ? 'rotate-0 translate-y-0' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0'}`}>
               <a
                 href="https://www.instagram.com/theabhishekar/"
                 target="_blank"
@@ -117,7 +117,7 @@ export default function HomeView({ setActiveTab }) {
 
             {/* LinkedIn: overlaps instagram, rotated right */}
             <div 
-              className="transition-all duration-300 ease-out z-20 relative flex-shrink-0 rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[40px]"
+              className={`transition-all duration-500 ease-out z-20 relative flex-shrink-0 ${iconsInView ? 'rotate-0 translate-y-0 translate-x-[40px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[40px]'}`}
               style={{ marginLeft: -28 }}
             >
               <a
@@ -137,7 +137,7 @@ export default function HomeView({ setActiveTab }) {
 
             {/* GitHub: overlaps linkedin, rotated left */}
             <div 
-              className="transition-all duration-300 ease-out z-30 relative flex-shrink-0 -rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[80px]"
+              className={`transition-all duration-500 ease-out z-30 relative flex-shrink-0 ${iconsInView ? 'rotate-0 translate-y-0 translate-x-[80px]' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[80px]'}`}
               style={{ marginLeft: -28 }}
             >
               <a
@@ -157,7 +157,7 @@ export default function HomeView({ setActiveTab }) {
 
             {/* Mail (Gmail): overlaps github, rotated right */}
             <div 
-              className="transition-all duration-300 ease-out z-40 relative flex-shrink-0 rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[120px]"
+              className={`transition-all duration-500 ease-out z-40 relative flex-shrink-0 ${iconsInView ? 'rotate-0 translate-y-0 translate-x-[120px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[120px]'}`}
               style={{ marginLeft: -28 }}
             >
               <a
@@ -175,9 +175,8 @@ export default function HomeView({ setActiveTab }) {
           </div>
         </div>
 
-        {/* "Check my work history →": x=966, right edge at 966+306=1272 */}
-        {/* Right-padded to 1440-1272=168px from right */}
-        <div style={{ paddingRight: 168 }} className="flex justify-end">
+        {/* "Check my work history →" */}
+        <div className="flex justify-center md:justify-end md:pr-[100px] lg:pr-[168px]">
           <button
             onClick={() => {
               if (setActiveTab) {
@@ -185,7 +184,7 @@ export default function HomeView({ setActiveTab }) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }
             }}
-            className="text-[32px] leading-[34px] font-normal text-white/90 hover:text-white text-right hover:underline transition-all cursor-pointer"
+            className="text-[24px] sm:text-[32px] leading-[1.2] font-normal text-white/90 hover:text-white text-center md:text-right hover:underline transition-all cursor-pointer"
           >
             Check my work history →
           </button>

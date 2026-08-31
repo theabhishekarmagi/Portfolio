@@ -1,8 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function WorkView({ setActiveTab }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [iconsInView, setIconsInView] = useState(false);
+  const iconsRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && window.innerWidth < 768) {
+          setIconsInView(true);
+        } else {
+          setIconsInView(false);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (iconsRef.current) {
+      observer.observe(iconsRef.current);
+    }
+
+    return () => {
+      if (iconsRef.current) observer.unobserve(iconsRef.current);
+    };
+  }, []);
 
   const handleClick = () => {
     if (isExpanded) return;
@@ -20,15 +43,16 @@ export default function WorkView({ setActiveTab }) {
         className="w-full max-w-[1440px] mx-auto px-6 font-['Inter'] min-h-[80vh] flex flex-col items-center justify-center cursor-pointer relative"
         onClick={handleClick}
       >
-        <div className={`flex flex-col md:flex-row items-center group transition-opacity duration-500 ease-out ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`flex flex-col md:flex-row items-center group transition-opacity duration-500 ease-out ${isAnimating ? 'opacity-0' : 'opacity-100'}`} ref={iconsRef}>
           <span className="text-[32px] sm:text-[40px] md:text-[48px] leading-[1.2] font-normal text-white mr-0 md:mr-[20px] mb-12 md:mb-0 whitespace-nowrap">
             Projects I've build
           </span>
 
           {/* Social icons cluster with negative overlap and scattered rotations */}
-          <div className="flex items-center">
+          {/* Shift container left by 40px on mobile to compensate for the rightward spread, keeping it centered */}
+          <div className={`flex items-center transform scale-75 sm:scale-100 transition-transform duration-500 ${iconsInView ? '-translate-x-[40px] sm:translate-x-0' : 'translate-x-0'}`}>
             {/* GitDesk: rotated left */}
-            <div className={`group/icon transition-all duration-300 ease-out z-10 relative flex-shrink-0 -rotate-6 translate-y-1 ${isAnimating ? 'rotate-0 translate-y-0' : 'group-hover:rotate-0 group-hover:translate-y-0'}`}>
+            <div className={`group/icon transition-all duration-500 ease-out z-10 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0'}`}>
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
                 GitDesk
               </div>
@@ -39,7 +63,7 @@ export default function WorkView({ setActiveTab }) {
 
             {/* Draw.io Figma: overlaps, rotated right */}
             <div 
-              className={`group/icon transition-all duration-300 ease-out z-20 relative flex-shrink-0 rotate-6 -translate-y-1 ${isAnimating ? 'rotate-0 translate-y-0 translate-x-[60px]' : 'group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[60px]'}`}
+              className={`group/icon transition-all duration-500 ease-out z-20 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[40px] sm:translate-x-[60px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[40px] sm:group-hover:translate-x-[60px]'}`}
               style={{ marginLeft: -42 }}
             >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
@@ -52,7 +76,7 @@ export default function WorkView({ setActiveTab }) {
 
             {/* T-Works: overlaps, rotated left */}
             <div 
-              className={`group/icon transition-all duration-300 ease-out z-30 relative flex-shrink-0 -rotate-6 translate-y-1 ${isAnimating ? 'rotate-0 translate-y-0 translate-x-[120px]' : 'group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[120px]'}`}
+              className={`group/icon transition-all duration-500 ease-out z-30 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[80px] sm:translate-x-[120px]' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[80px] sm:group-hover:translate-x-[120px]'}`}
               style={{ marginLeft: -42 }}
             >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
@@ -65,7 +89,7 @@ export default function WorkView({ setActiveTab }) {
 
             {/* DSR: overlaps, rotated right */}
             <div 
-              className={`group/icon transition-all duration-300 ease-out z-40 relative flex-shrink-0 rotate-6 -translate-y-1 ${isAnimating ? 'rotate-0 translate-y-0 translate-x-[180px]' : 'group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[180px]'}`}
+              className={`group/icon transition-all duration-500 ease-out z-40 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[120px] sm:translate-x-[180px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[120px] sm:group-hover:translate-x-[180px]'}`}
               style={{ marginLeft: -42 }}
             >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
