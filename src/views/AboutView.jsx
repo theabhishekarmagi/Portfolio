@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function AboutView() {
+  const [showFigmaNotice, setShowFigmaNotice] = useState(true);
+  const [hoveredOther, setHoveredOther] = useState(false);
   const education = [
     {
       institution: 'Vignana Bharathi Institute of Technology',
@@ -58,32 +60,86 @@ export default function AboutView() {
 
           <div className="flex items-center justify-center md:justify-end gap-6 sm:gap-8 mt-16 md:mt-24 md:pr-12">
             {/* LinkedIn */}
-            <div className="group/icon relative">
+            <div 
+              className="group/icon relative"
+              onMouseEnter={() => setHoveredOther(true)}
+              onMouseLeave={() => setHoveredOther(false)}
+            >
               <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-[#333333] text-white text-[14px] sm:text-[16px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50 shadow-xl">
                 theabhishekar
               </div>
-              <a href="https://www.linkedin.com/in/theabhishekar-m/" target="_blank" rel="noopener noreferrer" className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] bg-white rounded-[16px] sm:rounded-[20px] shadow-xl hover:scale-110 transition-transform flex items-center justify-center p-1.5 sm:p-2">
+              <a 
+                href="https://www.linkedin.com/in/theabhishekar-m/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => setShowFigmaNotice(false)}
+                className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] bg-white rounded-[16px] sm:rounded-[20px] shadow-xl hover:scale-110 transition-transform flex items-center justify-center p-1.5 sm:p-2"
+              >
                 <img src="/assets/linkedin.png" alt="LinkedIn" className="w-full h-full object-contain select-none" />
               </a>
             </div>
 
             {/* GitHub */}
-            <div className="group/icon relative">
+            <div 
+              className="group/icon relative"
+              onMouseEnter={() => setHoveredOther(true)}
+              onMouseLeave={() => setHoveredOther(false)}
+            >
               <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-[#333333] text-white text-[14px] sm:text-[16px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50 shadow-xl">
                 theabhishekarmagi
               </div>
-              <a href="https://github.com/theabhishekarmagi" target="_blank" rel="noopener noreferrer" className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] rounded-full shadow-xl hover:scale-110 transition-transform overflow-hidden">
+              <a 
+                href="https://github.com/theabhishekarmagi" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => setShowFigmaNotice(false)}
+                className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] rounded-full shadow-xl hover:scale-110 transition-transform overflow-hidden"
+              >
                 <img src="/assets/github.png" alt="GitHub" className="w-full h-full object-cover select-none" />
               </a>
             </div>
 
             {/* Gmail */}
-            <div className="group/icon relative">
+            <div 
+              className="group/icon relative"
+              onMouseEnter={() => setHoveredOther(true)}
+              onMouseLeave={() => setHoveredOther(false)}
+            >
               <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-[#333333] text-white text-[14px] sm:text-[16px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50 shadow-xl">
                 theabhishekar@gmail.com
               </div>
-              <a href="mailto:theabhishekar@gmail.com" className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] bg-white rounded-[16px] sm:rounded-[20px] shadow-xl hover:scale-110 transition-transform flex items-center justify-center p-2 sm:p-2.5">
+              <a 
+                href="mailto:theabhishekar@gmail.com" 
+                onClick={() => setShowFigmaNotice(false)}
+                className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] bg-white rounded-[16px] sm:rounded-[20px] shadow-xl hover:scale-110 transition-transform flex items-center justify-center p-2 sm:p-2.5"
+              >
                 <img src="/assets/gmail.png" alt="Gmail" className="w-full h-full object-contain select-none" />
+              </a>
+            </div>
+
+            {/* Figma */}
+            <div className="group/icon relative">
+              <a
+                href="https://www.figma.com/@theabhishekar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`absolute -top-12 sm:-top-14 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 px-4 py-2 bg-[#333333] hover:bg-[#222222] text-white text-[14px] sm:text-[16px] leading-tight rounded-full whitespace-nowrap z-50 shadow-xl transition-all duration-300 flex items-center gap-1.5 cursor-pointer select-none ${
+                  showFigmaNotice && !hoveredOther
+                    ? 'opacity-100 scale-100 pointer-events-auto'
+                    : 'opacity-0 scale-95 pointer-events-none group-hover/icon:opacity-100 group-hover/icon:scale-100 group-hover/icon:pointer-events-auto'
+                }`}
+              >
+                <span>1.8k subs on the Figma Community</span>
+                {/* Pointer arrow down */}
+                <div className="absolute -bottom-1 right-6 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 w-2.5 h-2.5 bg-[#333333] group-hover/icon:bg-[#222222] rotate-45 transition-colors" />
+              </a>
+              <a
+                href="https://www.figma.com/@theabhishekar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] bg-white rounded-[16px] sm:rounded-[20px] shadow-xl hover:scale-110 transition-transform flex items-center justify-center p-2.5 sm:p-3"
+              >
+                <img src="/assets/figma.svg" alt="Figma" className="w-full h-full object-contain select-none" />
               </a>
             </div>
           </div>

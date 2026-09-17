@@ -51,8 +51,21 @@ export default function WorkView({ setActiveTab }) {
           {/* Social icons cluster with negative overlap and scattered rotations */}
           {/* Shift container left by 40px on mobile to compensate for the rightward spread, keeping it centered */}
           <div className={`flex items-center transform scale-75 sm:scale-100 transition-transform duration-500 ${iconsInView ? '-translate-x-[40px] sm:translate-x-0' : 'translate-x-0'}`}>
-            {/* GitDesk: rotated left */}
+            {/* GitLayer: rotated left */}
             <div className={`group/icon transition-all duration-500 ease-out z-10 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0'}`}>
+              <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
+                GitLayer
+              </div>
+              <div className="w-[120px] h-[120px] rounded-[36px] overflow-hidden shadow-xl flex items-center justify-center">
+                <img src="/assets/gitlayer.png" alt="GitLayer" className="w-full h-full object-cover select-none" />
+              </div>
+            </div>
+
+            {/* GitDesk: overlaps, rotated right */}
+            <div 
+              className={`group/icon transition-all duration-500 ease-out z-20 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[40px] sm:translate-x-[60px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[40px] sm:group-hover:translate-x-[60px]'}`}
+              style={{ marginLeft: -42 }}
+            >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
                 GitDesk
               </div>
@@ -61,9 +74,9 @@ export default function WorkView({ setActiveTab }) {
               </div>
             </div>
 
-            {/* Draw.io Figma: overlaps, rotated right */}
+            {/* Draw.io Figma: overlaps, rotated left */}
             <div 
-              className={`group/icon transition-all duration-500 ease-out z-20 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[40px] sm:translate-x-[60px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[40px] sm:group-hover:translate-x-[60px]'}`}
+              className={`group/icon transition-all duration-500 ease-out z-30 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[80px] sm:translate-x-[120px]' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[80px] sm:group-hover:translate-x-[120px]'}`}
               style={{ marginLeft: -42 }}
             >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
@@ -74,9 +87,9 @@ export default function WorkView({ setActiveTab }) {
               </div>
             </div>
 
-            {/* T-Works: overlaps, rotated left */}
+            {/* T-Works: overlaps, rotated right */}
             <div 
-              className={`group/icon transition-all duration-500 ease-out z-30 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[80px] sm:translate-x-[120px]' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[80px] sm:group-hover:translate-x-[120px]'}`}
+              className={`group/icon transition-all duration-500 ease-out z-40 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[120px] sm:translate-x-[180px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[120px] sm:group-hover:translate-x-[180px]'}`}
               style={{ marginLeft: -42 }}
             >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
@@ -87,9 +100,9 @@ export default function WorkView({ setActiveTab }) {
               </div>
             </div>
 
-            {/* DSR: overlaps, rotated right */}
+            {/* DSR: overlaps, rotated left */}
             <div 
-              className={`group/icon transition-all duration-500 ease-out z-40 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[120px] sm:translate-x-[180px]' : 'rotate-6 -translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[120px] sm:group-hover:translate-x-[180px]'}`}
+              className={`group/icon transition-all duration-500 ease-out z-50 relative flex-shrink-0 ${isAnimating || iconsInView ? 'rotate-0 translate-y-0 translate-x-[160px] sm:translate-x-[240px]' : '-rotate-6 translate-y-1 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-[160px] sm:group-hover:translate-x-[240px]'}`}
               style={{ marginLeft: -42 }}
             >
               <div className="absolute -top-14 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#333333] text-white text-[16px] sm:text-[20px] leading-tight rounded-full opacity-0 pointer-events-none transition-opacity duration-200 group-hover/icon:opacity-100 whitespace-nowrap z-50">
@@ -127,8 +140,48 @@ export default function WorkView({ setActiveTab }) {
   return (
     <main className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 md:px-[164px] font-['Inter'] pb-32 animate-fade-in">
 
-      {/* ── PROJECT 1: GitDesk ──────────────────────────────────────────────── */}
+      {/* ── PROJECT 1: GitLayer ─────────────────────────────────────────────── */}
       <section className="grid grid-cols-1 md:grid-cols-[300px_1fr] items-start pt-[100px] sm:pt-[120px] gap-8 md:gap-12">
+        {/* Left Column */}
+        <div className="flex flex-col items-start md:items-center">
+          <a
+            href="https://www.figma.com/community/plugin/1677610986953606677/gitlayer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:scale-105 transition-transform block"
+          >
+            <img
+              src="/assets/gitlayer.png"
+              alt="GitLayer"
+              style={{ width: 177, height: 177 }}
+              className="rounded-[36px] object-cover drop-shadow-2xl select-none"
+            />
+          </a>
+        </div>
+
+        {/* Right Column: Title + Description */}
+        <div className="flex flex-col pt-2 max-w-[717px]">
+          <a
+            href="https://www.figma.com/community/plugin/1677610986953606677/gitlayer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-fit hover:text-white/80 transition-colors"
+          >
+            <h2 className="text-[28px] sm:text-[32px] leading-[39px] font-bold text-white underline underline-offset-4 mb-4">
+              GitLayer
+            </h2>
+          </a>
+          <p className="text-[24px] sm:text-[32px] leading-[36px] sm:leading-[39px] font-normal text-white/95 mb-6 text-pretty">
+            GitLayer is a Figma plugin that brings a <span className="whitespace-nowrap">Git-style</span> version control workflow (branch, commit, merge, delete branch) directly into the Figma canvas, backed by the user's own GitHub, GitLab, or Bitbucket account.
+          </p>
+          <p className="text-[24px] sm:text-[32px] leading-[36px] sm:leading-[39px] font-normal text-white/95 text-pretty">
+            Instead of relying on Figma's own linear version history, or Figma's native Branching feature which is limited to Organization.
+          </p>
+        </div>
+      </section>
+
+      {/* ── PROJECT 2: GitDesk ──────────────────────────────────────────────── */}
+      <section className="grid grid-cols-1 md:grid-cols-[300px_1fr] items-start pt-[140px] sm:pt-[160px] gap-8 md:gap-12">
         {/* Left Column */}
         <div className="flex flex-col items-start md:items-center">
           <a href="https://github.com/theabhishekarmagi/GitDesk" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition-transform block">
@@ -155,7 +208,7 @@ export default function WorkView({ setActiveTab }) {
         </div>
       </section>
 
-      {/* ── PROJECT 2: Draw.io → Figma ───────────────────────────────────────── */}
+      {/* ── PROJECT 3: Draw.io → Figma ───────────────────────────────────────── */}
       <section className="grid grid-cols-1 md:grid-cols-[300px_1fr] items-start pt-[140px] sm:pt-[160px] gap-8 md:gap-12">
         {/* Left Column */}
         <div className="flex flex-col items-start md:items-center">
@@ -185,7 +238,7 @@ export default function WorkView({ setActiveTab }) {
         </div>
       </section>
 
-      {/* ── PROJECT 3: T-Works ERP & CRM ────────────────────────────────────── */}
+      {/* ── PROJECT 4: T-Works ERP & CRM ────────────────────────────────────── */}
       <section className="pt-[140px] sm:pt-[160px]">
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] items-start gap-8 md:gap-12">
           {/* Left: T-Works logo */}
@@ -226,7 +279,7 @@ export default function WorkView({ setActiveTab }) {
         </div>
       </section>
 
-      {/* ── PROJECT 4: Dream Start Rise ─────────────────────────────────────── */}
+      {/* ── PROJECT 5: Dream Start Rise ─────────────────────────────────────── */}
       <section className="pt-[140px] sm:pt-[160px]">
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] items-start gap-8 md:gap-12">
           {/* Left: Dream Start Rise logo */}
