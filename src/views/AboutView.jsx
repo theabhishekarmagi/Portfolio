@@ -129,7 +129,7 @@ export default function AboutView() {
                     : 'opacity-0 scale-95 pointer-events-none group-hover/icon:opacity-100 group-hover/icon:scale-100 group-hover/icon:pointer-events-auto'
                 }`}
               >
-                <span>1.8k subs on the Figma Community</span>
+                <span>2k+ subs on the Figma Community</span>
                 {/* Pointer arrow down */}
                 <div className="absolute -bottom-1 right-6 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 w-2.5 h-2.5 bg-[#333333] group-hover/icon:bg-[#222222] rotate-45 transition-colors" />
               </a>
